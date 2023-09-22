@@ -1,13 +1,125 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+:root {
+  --main-blue: #1E213F;
+  --main-pink: #f87070;
+  --second-blue: #161932;
+  --font-set1: 'Kumbh Sans', Poppins, Monserat, 'Open Sans', Roboto, sans-serif;
+  --font-set2: 'Roboto Slab', Lora, Merriweather, 'PT Serif', Arvo, 'Playfair Display', 'Noto serif';
+  --font-set3: "Space Mono", "IBM Plex Mono", "Fira Mono", "Anonymous Pro", monospace;
+}
+body  {
+  text-align: center;
+  background-color: var(--main-blue);
+  user-select: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Header */
+.pomodoro-logo  {
+  padding: 35px;
+}
+
+/*Break Modes*/
+.break-modes  {
+  background-color: var(--second-blue);
+  width: 380px;
+  height: 62px;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 31px;
+}
+.break-mode-btn {
+  display: none;
+}
+.pill, .pill label span {
+  height: 52px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 26px;
+}
+.pill{
+  background-color: var(--second-blue);
+}
+.pill label span{
+  color: #6c6e86;
+  font-weight: 700;
+}
+.break-mode-btn:checked + span {
+  color: var(--second-blue);
+  /*border-radius: 26px;*/
+} 
+
+/*Timer*/
+.timer {
+  width: 480px;
+  height: 480px;
+  margin: 0 auto;
+}
+.start-stop:hover {
+  cursor: pointer;
+  fill: #4A90E2;
+  transition: fill 0.3s ease;
+}
+.progress-ring{
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*Settings*/
+.settings-button  {
+  margin: 10px auto 30px auto;
+}
+.settings-button img:hover  {
+  cursor: pointer;
+  transform: scale(1.08);
+  transition: transform 0.3s ease;
+}
+.settings-section {
+  display: flex;
+  align-items: center;
+}
+.settings-menu  {
+  width: 560px;
+  height: 460px;
+  background: #fff;
+  border-radius: 22px;
+  margin: auto;
+  position: relative;
+  top: -535px;
+}
+.settings-header  {
+  padding: 30px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-set1);
+  font-size: 1.2rem;
+  color: var(--main-blue);
+  border-bottom: 1px solid #D7E0FF;
+}
+.close-button:hover {
+  cursor: pointer;
+}
+.close-button:hover svg path  {
+  opacity: 1;
+}
+
+/*Scrollbar*/
+:-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--main-blue);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #D7E0FF;
+  border-radius: 10px;
 }
