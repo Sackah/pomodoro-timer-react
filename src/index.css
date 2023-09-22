@@ -34,7 +34,7 @@ body  {
   justify-content: space-evenly;
   border-radius: 31px;
 }
-.break-mode-btn {
+input[type="radio"] {
   display: none;
 }
 .pill, .pill label span {
@@ -87,6 +87,7 @@ body  {
 .settings-section {
   display: flex;
   align-items: center;
+  max-height: 72px;
 }
 .settings-menu  {
   width: 560px;
@@ -98,7 +99,8 @@ body  {
   top: -535px;
 }
 .settings-header  {
-  padding: 30px 50px;
+  padding: 0px 50px;
+  height: 20%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,6 +114,86 @@ body  {
 }
 .close-button:hover svg path  {
   opacity: 1;
+}
+form {
+  height: 93%;
+  width: 85%;
+  margin: auto;
+}
+form h2 {
+  font-family: var(--font-set1);
+  font-size: 0.85rem;
+  letter-spacing: 0.3rem;
+  color: var(--main-blue);
+  height: 10%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.custom-time, .custom-font, .custom-color {
+  height: 23%;
+  display: block;
+}
+.custom-font > label, .custom-color > label {
+  font-family: var(--font-set1);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3rem;
+  color: var(--main-blue);
+}
+.custom-font, .custom-color  {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom-time, .custom-font  {
+  border-bottom: 1px solid #D7E0FF;
+}
+.radios  {
+  width: 35%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.radios div, .radios div label {
+  cursor: pointer;
+}
+.kumbh-sans, .roboto-slab, .space-mono, .red, .blue, .purple   {
+  height: 44px;
+  width: 44px;
+  border-radius: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkmark-icon {
+  width: 30px;
+  height: 30px;
+  padding-top: 10px;
+  fill: var(--main-blue);
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.color-button:checked + span .checkmark-icon{
+  opacity: 1;
+}
+button  {
+  height: 56px;
+  width: 140px;
+  border: none;
+  background: var(--main-pink);
+  font-family: var(--font-set1);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 27px;
+}
+button:hover, button:active{
+  cursor: pointer;
+  filter: brightness(1.2);
 }
 
 /*Scrollbar*/
