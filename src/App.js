@@ -35,7 +35,6 @@ function App() {
   useEffect((()=>{
     setRemainingTime(timerType * 60);
     setTimeInText(formatTime(timerType * 60));
-    //console.log(timerType, remainingTime);
 
     // Set circleWidth based on window width
     if (window.innerWidth <= 375) {
@@ -43,10 +42,16 @@ function App() {
     } else {
       setCircleWidth(480);
     }
-  }),[timerType]);
+  }),[timerType]); //Reset remaining time and time text display anytime timerType changes
 
   const updateTimerType = (event) => {
     setTimerType(event);
+    if (timerRunning){
+      clearInterval(intervalId.current);
+      setTimerRunning(false);
+      setButtonStatus("START");
+      progress(timerType * 60);
+    } //When the timer type is changed, stop the timer
   }
 
   const handleStartStop = () => {
@@ -56,7 +61,6 @@ function App() {
         setTimerRunning(false);
     }else {
         const newIntervalId = setInterval(countdown, 1000);
-        //setIntervalId(newIntervalId);
         intervalId.current = newIntervalId;
         setButtonStatus("PAUSE");
         setTimerRunning(true);
