@@ -11,7 +11,7 @@ function App() {
     shortBreak: 1,
     longBreak: 15
   });
-  const [ themeStyle ]  = useState({
+  const [ themeStyle, setThemeStyle ]  = useState({
     font: "'Kumbh Sans', Poppins, Monserat, 'Open Sans', Roboto, sans-serif ",
     color: "#f87070"
   });
@@ -27,8 +27,7 @@ function App() {
   const circumference = (2*Math.PI) * radius;
   const [ progressRingStyle, setProgressRingStyle ] = useState({
     strokeDasharray: `${circumference} ${circumference}`,
-    strokeDashoffset: `${circumference}`,
-    stroke: themeStyle.color
+    strokeDashoffset: `${circumference}`
   });
   
 
@@ -52,6 +51,9 @@ function App() {
       setButtonStatus("START");
       progress(timerType * 60);
     } //When the timer type is changed, stop the timer
+  }
+  const updateThemeStyle = (event) => {
+    setThemeStyle(event);
   }
 
   const handleStartStop = () => {
@@ -108,7 +110,7 @@ function App() {
           timeInText={timeInText} handleStartStop={handleStartStop} 
           themeStyle={themeStyle} progressRingStyle={progressRingStyle}
         />
-        <Settings/>
+        <Settings updateThemeStyle={updateThemeStyle}/>
       </div>
     </div>
   );

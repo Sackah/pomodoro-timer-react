@@ -1,7 +1,18 @@
 import { useState } from "react";
 import settingsIcon from './assets/icon-settings.svg';
 
-const Settings = () => {
+const Settings = (props) => {
+    //styles
+    const colors = {
+        red: "#F87070",
+        blue: "#70f3f8",
+        purple: "#D881F8"
+    }
+    const fonts = {
+        kumbhSans: "'Kumbh Sans', Poppins, Monserat, 'Open Sans', Roboto, sans-serif",
+        robotoSlab: "'Roboto Slab', Lora, Merriweather, 'PT Serif', Arvo, 'Playfair Display', 'Noto serif'",
+        spaceMono: "'Space Mono', 'IBM Plex Mono', 'Fira Mono', 'Anonymous Pro', monospace" 
+    }
     //States
     const [ menuDisplay, setMenuDisplay ] = useState(false);
     const [ bgColorKumbhSans, setBgColorKumbhSans ] = useState('#1E213F');
@@ -10,12 +21,25 @@ const Settings = () => {
     const [ fontColorKumbhSans, setFontColorKumbhSans ] = useState('#fff');
     const [ fontColorRobotoSlab, setFontColorRobotoSlab ] = useState('#1E213F');
     const [ fontColorSpaceMono, setFontColorSpaceMono ] = useState('#1E213F');
+    const [ checkMarkRed, setCheckMarkRed ] = useState({opacity: "1"});
+    const [ checMarkBLue, setCheckMarkBlue ] = useState({opacity: "0"});
+    const [ checkMarkPurple, setCheckMarkPurple ] = useState({opacity: "0"});
+
+    const [ selectedColor, setSelectedColor ] = useState(colors.red);
+    const [ selectedFont, setSelectedFont ] = useState(fonts.kumbhSans);
 
     const toggleDisplay = () =>{
-        setMenuDisplay(prevMenudisplay => !prevMenudisplay)
+        setMenuDisplay(prevMenudisplay => !prevMenudisplay);
     }
     const handleSubmit = (e) =>{
         e.preventDefault();
+        //setMenuDisplay(prevMenudisplay => !prevMenudisplay);
+        const finalSelectedColor = selectedColor;
+        const finalSelectedFont = selectedFont;
+        props.updateThemeStyle({
+            font: finalSelectedFont,
+            color: finalSelectedColor
+        })
     }
     const handleFontRadioChange = (e) =>{
         //Reset all colors
@@ -28,17 +52,44 @@ const Settings = () => {
 
         //Set color for checked radio button
         switch (e.target.value) {
-            case "kumbhsans":
+            case fonts.kumbhSans:
                 setBgColorKumbhSans("#1E213F");
-                setFontColorKumbhSans("#fff")
+                setFontColorKumbhSans("#fff");
+                setSelectedFont(fonts.kumbhSans);
                 break;
-            case "robotoslab":
+            case fonts.robotoSlab:
                 setBgColorRobotoSlab("#1E213F");
                 setFontColorRobotoSlab("#fff");
+                setSelectedFont(fonts.robotoSlab);
                 break;
-            case "spacemono":
+            case fonts.spaceMono:
                 setBgColorSpaceMono("#1E213F");
                 setFontColorSpaceMono("#fff");
+                setSelectedFont(fonts.spaceMono);
+                break;
+            default:
+                break;
+        }
+    }
+    const handleColorRadioChange = (e) =>{
+        //Reset
+        setCheckMarkRed({opacity: "0"});
+        setCheckMarkBlue({opacity: "0"});
+        setCheckMarkPurple({opacity: "0"});
+
+        //Set opacity for checked radio button
+        switch(e.target.value){
+            case colors.red:
+                setCheckMarkRed({opacity: "1"});
+                setSelectedColor(colors.red);
+                break;
+            case colors.blue:
+                setCheckMarkBlue({opacity: "1"});
+                setSelectedColor(colors.blue);
+                break;
+            case colors.purple:
+                setCheckMarkPurple({opacity: "1"});
+                setSelectedColor(colors.purple);
                 break;
             default:
                 break;
@@ -71,21 +122,21 @@ const Settings = () => {
                         <div className="radios">
                             <div className="kumbh-sans" style={{backgroundColor: bgColorKumbhSans}}>
                                 <label>
-                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value="kumbhsans" className="font-style-button" defaultChecked/>
+                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value={fonts.kumbhSans} className="font-style-button" defaultChecked/>
                                     <span style={{color: fontColorKumbhSans, fontFamily: "'Kumbh Sans', Poppins, Monserat, 'Open Sans', Roboto, sans-serif"}}
                                     >Aa</span>
                                 </label>
                             </div>
                             <div className="roboto-slab" style={{backgroundColor: bgColorRobotoSlab}}>
                                 <label>
-                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value="robotoslab" className="font-style-button"/>
+                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value={fonts.robotoSlab} className="font-style-button"/>
                                     <span   style={{color: fontColorRobotoSlab, fontFamily: "'Roboto Slab', Lora, Merriweather, 'PT Serif', Arvo, 'Playfair Display', 'Noto serif'"}}
                                     >Aa</span>
                                 </label>
                             </div>
                             <div className="space-mono" style={{backgroundColor: bgColorSpaceMono}}>
                                 <label>
-                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value="spacemono" className="font-style-button"/>
+                                    <input type="radio" name="font-type" onChange={handleFontRadioChange} value={fonts.spaceMono} className="font-style-button"/>
                                     <span   style={{color: fontColorSpaceMono, fontFamily: "'Space Mono', 'IBM Plex Mono', 'Fira Mono', 'Anonymous Pro', monospace"}}
                                     >Aa</span>
                                 </label>
@@ -95,31 +146,31 @@ const Settings = () => {
                     <div className="custom-color">
                         <label>COLOR</label>
                         <div className="radios">
-                            <div className="red" style={{backgroundColor: "#F87070"}}>
+                            <div className="red" style={{backgroundColor: colors.red}}>
                                 <label>
-                                    <input type="radio" name="color-type" value="red" className="color-button" defaultChecked/>
+                                    <input type="radio" name="color-type" value={colors.red} onChange={handleColorRadioChange} className="color-button" defaultChecked/>
                                     <span>
-                                        <svg className="checkmark-icon" viewBox="0 0 24 24">
+                                        <svg className="checkmark-icon" style={checkMarkRed} viewBox="0 0 24 24">
                                             <path d="M5.293 11.293L9 15l9-9-1.414-1.414L9 12.172l-3.293-3.293-1.414 1.414z" />
                                         </svg>
                                     </span>
                                 </label>
                             </div>
-                            <div className="blue" style={{backgroundColor: "#70f3f8"}}>
+                            <div className="blue" style={{backgroundColor: colors.blue}}>
                                 <label>
-                                    <input type="radio" name="color-type" value="blue" className="color-button"/>
+                                    <input type="radio" name="color-type" value={colors.blue} onChange={handleColorRadioChange} className="color-button"/>
                                     <span>
-                                        <svg className="checkmark-icon" viewBox="0 0 24 24">
+                                        <svg className="checkmark-icon" style={checMarkBLue} viewBox="0 0 24 24">
                                             <path d="M5.293 11.293L9 15l9-9-1.414-1.414L9 12.172l-3.293-3.293-1.414 1.414z" />
                                         </svg>
                                     </span>
                                 </label>
                             </div>
-                            <div className="purple" style={{backgroundColor: "#D881F8"}}>
+                            <div className="purple" style={{backgroundColor: colors.purple}}>
                                 <label>
-                                    <input type="radio" name="color-type" value="purple" className="color-button"/>
+                                    <input type="radio" name="color-type" value={colors.purple} onChange={handleColorRadioChange} className="color-button"/>
                                     <span>
-                                        <svg className="checkmark-icon" viewBox="0 0 24 24">
+                                        <svg className="checkmark-icon" style={checkMarkPurple} viewBox="0 0 24 24">
                                             <path d="M5.293 11.293L9 15l9-9-1.414-1.414L9 12.172l-3.293-3.293-1.414 1.414z" />
                                         </svg>
                                     </span>
