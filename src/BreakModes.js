@@ -7,85 +7,44 @@ const BreakModes = (props) => {
     const durations = props.durations;
 
     //States
-    const [bgColorPomodoro, setBgColorPomodoro] = useState(themeStyle.color);
-    const [bgColorShortBreak, setBgColorShortBreak] = useState('#161932');
-    const [bgColorLongBreak, setBgColorLongBreak] = useState('#161932');
-    const [ selectedMode, setSelectedMode ] = useState('pomodoro');
+    const [selectedMode, setSelectedMode] = useState('pomodoro');
 
     useEffect((()=>{
-        //Update the background color based on the selected mode
-        setBgColorPomodoro((selectedMode === 'pomodoro' ? themeStyle.color : '#161932'));
-        setBgColorShortBreak((selectedMode === 'short-break' ? themeStyle.color : '#161932'));
-        setBgColorLongBreak((selectedMode === 'longbreak' ? themeStyle.color : '#161932'));
+        //Invoke CSS to set a variable which stores themestyle color, 
+        //when themeStyle.color changes, update the selected mode bg
+        document.documentElement.style.setProperty("--selected-mode-bg", themeStyle.color);
+    }), [themeStyle.color])
 
-        //Update the timer type based on the selected mode
-        switch (selectedMode){
-            case 'pomodoro':
-                timerType(durations.pomodoro);
-                break;
-            case 'short-break':
-                timerType(durations.shortBreak);
-                break;
-            case 'longbreak':
-                timerType(durations.longBreak);
-                break;
-            default:
-                break;
-        }
-    }),[ selectedMode, themeStyle.color, timerType, durations ]);
-
-    const handleRadioChange = (event) =>{
-        setSelectedMode(event.target.value);
+    const handleRadioChange = (event) => {
+        const mode = event.target.value;
+        setSelectedMode(mode);
+        timerType(durations[mode]);
     }
     
-/*    const handleRadioChange = (event) => {
-        // Reset all colors
-        setBgColorPomodoro('#161932');
-        setBgColorShortBreak('#161932');
-        setBgColorLongBreak('#161932');
-
-        // Set color for checked radio button
-        switch (event.target.value) {
-            case 'pomodoro':
-                setBgColorPomodoro(themeStyle.color);
-                timerType(durations.pomodoro);
-                break;
-            case 'short-break':
-                setBgColorShortBreak(themeStyle.color);
-                timerType(durations.shortBreak);
-                break;
-            case 'longbreak':
-                setBgColorLongBreak(themeStyle.color);
-                timerType(durations.longBreak);
-                break;
-            default:
-                break;
-        }
-    } */
-
-
-
     return ( 
         <div className="break-modes" style={{fontFamily: themeStyle.font}}>
             <div className="pill">
                 <label>
                     <input type="radio" id="pomodoro" value="pomodoro" className="break-mode-btn" name="timer-type"
-                    onChange={handleRadioChange} checked={selectedMode === 'pomodoro'} defaultChecked/>
-                    <span style={{backgroundColor: bgColorPomodoro}}>pomodoro</span>
+                    onChange={handleRadioChange} checked={selectedMode === 'pomodoro'}/>
+                    <span style={{backgroundColor: selectedMode === 'pomodoro' ? themeStyle.color : '#161932'}}
+                    >pomodoro</span>
                 </label>
             </div>
             <div className="pill">
                 <label>
-                    <input type="radio" id="shortbreak" value="short-break" className="break-mode-btn" name="timer-type"
-                    onChange={handleRadioChange} checked={selectedMode === 'short-break'}/>
-                    <span style={{backgroundColor: bgColorShortBreak}}>short break</span>
+                    <input type="radio" id="shortbreak" value="shortBreak" className="break-mode-btn" name="timer-type"
+                    onChange={handleRadioChange} checked={selectedMode === 'shortBreak'}/>
+                    <span style={{backgroundColor: selectedMode === 'shortBreak' ? themeStyle.color : '#161932'}}
+                    >short break</span>
                 </label>
             </div>
             <div className="pill">
                 <label>
-                    <input type="radio" id="longbreak" value="longbreak" className="break-mode-btn" name="timer-type"
-                    onChange={handleRadioChange} checked={selectedMode === 'longbreak'}/>
-                    <span style={{backgroundColor: bgColorLongBreak}}>long break</span>
+                    <input type="radio" id="longbreak" value="longBreak" className="break-mode-btn" name="timer-type"
+                    onChange={handleRadioChange} checked={selectedMode === 'longBreak'}/>
+                    <span style={{backgroundColor: selectedMode === 'longBreak' ? themeStyle.color : '#161932'}}
+                    >long break</span>
                 </label>
             </div>
         </div>
