@@ -18,12 +18,16 @@ body  {
   user-select: none;
 }
 
-/* Header */
+/*
+                    HEADER
+                                                            */
 .pomodoro-logo  {
   padding: 35px;
 }
 
-/*Break Modes*/
+/*
+                    BREAK MODES
+                                                            */
 .break-modes  {
   background-color: var(--second-blue);
   width: 380px;
@@ -57,7 +61,9 @@ input[type="radio"] {
   border-radius: 26px;
 }
 
-/*Timer*/
+/*
+                    TIMER
+                                                            */
 .timer {
   width: 480px;
   height: 480px;
@@ -75,7 +81,9 @@ input[type="radio"] {
   stroke-linejoin: round;
 }
 
-/*Settings*/
+/*
+                    SETTINGS
+                                                            */
 .settings-button  {
   margin: 10px auto 30px auto;
 }
@@ -132,7 +140,6 @@ form h2 {
 }
 .custom-time, .custom-font, .custom-color {
   height: 23%;
-  display: block;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -213,7 +220,86 @@ button:hover, button:active{
   filter: brightness(1.2);
 }
 
-/*Scrollbar*/
+/*
+                    MEDIA QUERIES
+                                                            */
+/*Mobile*/
+@media (max-width: 414px) and (min-width: 360px) {
+  /*BREAK MODES*/
+  .break-modes{
+    width: 300px;
+    height: 60px;
+    border-radius: 30px;
+  }
+  .pill, .pill label span{
+    width: 93px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+  }
+  /*TIMER*/
+  .timer, .timer-circle{
+    width: 380px;
+    height: 380px;
+  }
+  .timer-text{
+    font-size: 65px;
+  }
+  .start-stop{
+    font-size: 14px;
+  }
+  /*SETTINGS*/
+  .settings-menu{
+    width: 350px;
+    height: 750px;
+    top: -525px;
+  }
+  .settings-header{
+    height: 12%;
+    padding: 0 30px;
+    font-size: 0.9rem;
+  }
+  form{
+    height: 109%;
+  }
+  form h2{
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+    height: 5%;
+  }
+  .custom-font, .custom-color{
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 21%;
+  }
+  .custom-time{
+    height: 26%;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .custom-time div{
+    display: flex;
+    flex-direction: row;
+  }
+  .custom-time div label{
+    display: flex;
+    align-items: center;
+  }
+  .custom-time div label, input[type='number']{
+    width: 50%;
+  }
+  .radios{
+    width: 70%;
+  }
+  button{
+    margin-top: 5%;
+  }
+}
+
+/*
+                    SCROLLBAR
+                                                            */
 :-webkit-scrollbar {
   width: 10px;
   background-color: var(--main-blue);

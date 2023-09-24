@@ -40,7 +40,7 @@ function App() {
     console.log('durations changed');
 
     // Set circleWidth based on window width
-    if (window.innerWidth <= 375) {
+    if (window.innerWidth <= 414) {
       setCircleWidth(360);
     } else {
       setCircleWidth(480);
@@ -92,10 +92,10 @@ function App() {
         setTimerRunning(true);
     }
   }
-  /*const handleAlarmPause = () => {
+  document.addEventListener('click', ()=>{
     alarm.pause();
     alarm.currentTime = 0;
-  }*/
+  })
 
   //Helper functions
   function formatTime (timeInSeconds) {
