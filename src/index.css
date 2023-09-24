@@ -133,6 +133,10 @@ form h2 {
 .custom-time, .custom-font, .custom-color {
   height: 23%;
   display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 .custom-font > label, .custom-color > label {
   font-family: var(--font-set1);
@@ -141,14 +145,31 @@ form h2 {
   letter-spacing: 0.3rem;
   color: var(--main-blue);
 }
-.custom-font, .custom-color  {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
 .custom-time, .custom-font  {
   border-bottom: 1px solid #D7E0FF;
+}
+.custom-time  {
+  font-family: var(--font-set1);
+  color: var(--main-blue);
+  text-align: left;
+}
+.custom-time div label  {
+  font-size: 0.9rem;
+  opacity: 0.4;
+  font-weight: 700;
+}
+input[type="number"]  {
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: buttonface;
+  font-family: var(--font-set1);
+  color: var(--main-blue);
+  font-weight: 700;
+  border: none;
+  padding: 10%;
+  box-sizing: border-box;
+  margin-top: 5px;
 }
 .radios  {
   width: 35%;

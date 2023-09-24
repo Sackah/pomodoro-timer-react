@@ -24,9 +24,13 @@ const Settings = (props) => {
     const [ checkMarkRed, setCheckMarkRed ] = useState({opacity: "1"});
     const [ checMarkBLue, setCheckMarkBlue ] = useState({opacity: "0"});
     const [ checkMarkPurple, setCheckMarkPurple ] = useState({opacity: "0"});
-
+    //Final States
     const [ selectedColor, setSelectedColor ] = useState(colors.red);
     const [ selectedFont, setSelectedFont ] = useState(fonts.kumbhSans);
+    const [ pomodoro, setPomodoro ] = useState(25);
+    const [ longBreak, setLongBreak ] = useState(15);
+    const [ shortBreak, setShortBreak ] = useState(5);
+    const [ isApplying, setIsApplying ] = useState(false);
 
     const toggleDisplay = () =>{
         setMenuDisplay(prevMenudisplay => !prevMenudisplay);
@@ -36,10 +40,22 @@ const Settings = (props) => {
         //setMenuDisplay(prevMenudisplay => !prevMenudisplay);
         const finalSelectedColor = selectedColor;
         const finalSelectedFont = selectedFont;
+        const finalSelectedTime = {
+            pomodoro: parseFloat(pomodoro),
+            shortBreak: parseFloat(shortBreak),
+            longBreak: parseFloat(longBreak)
+        }
+        console.log(pomodoro, shortBreak, longBreak);
+        props.updateDurations(finalSelectedTime);
         props.updateThemeStyle({
             font: finalSelectedFont,
             color: finalSelectedColor
         })
+        setIsApplying(true);
+        setTimeout((()=>{
+            setIsApplying(false);
+            setMenuDisplay(prevMenudisplay => !prevMenudisplay);
+        }), 2000)
     }
     const handleFontRadioChange = (e) =>{
         //Reset all colors
@@ -113,9 +129,24 @@ const Settings = (props) => {
                 <form onSubmit={handleSubmit}>
                     <h2>TIME (MINUTES)</h2>
                     <div className="custom-time">
-                        <label></label>
-                        <label></label>
-                        <label></label>
+                        <div>
+                            <label>pomodoro</label>
+                            <input type="number" 
+                                value={pomodoro} onChange={(e)=>setPomodoro(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label>short break</label>
+                            <input type="number"
+                                value={shortBreak} onChange={(e)=>setShortBreak(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label>long break</label>
+                            <input type="number" 
+                                value={longBreak} onChange={(e)=>setLongBreak(e.target.value)}
+                            />
+                        </div>
                     </div>
                     <div className="custom-font">
                         <label>FONT</label>
@@ -178,7 +209,8 @@ const Settings = (props) => {
                             </div>
                         </div>
                     </div>
-                    <button>Apply</button>
+                    {!isApplying && <button>Apply</button>}
+                    {isApplying && <button>Applying...</button>}
                 </form>    
             </div>}
         </section>

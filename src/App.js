@@ -2,13 +2,15 @@ import BreakModes from './BreakModes';
 import Timer from './Timer';
 import Settings from './Settings';
 import logo from './assets/logo.svg';
+import alarmSound from './assets/Justin Bieber - Stay Short Version.mp3';
 import { useState, useEffect, useRef } from 'react';
 
 function App() {
   //States
-  const [ durations /*, setDurations*/ ] = useState({
+  const alarm = new Audio(alarmSound);
+  const [ durations, setDurations ] = useState({
     pomodoro: 25,
-    shortBreak: 1,
+    shortBreak: 5,
     longBreak: 15
   });
   const [ themeStyle, setThemeStyle ]  = useState({
@@ -35,13 +37,15 @@ function App() {
     setRemainingTime(timerType * 60);
     setTimeInText(formatTime(timerType * 60));
 
+    console.log('durations changed');
+
     // Set circleWidth based on window width
     if (window.innerWidth <= 375) {
       setCircleWidth(360);
     } else {
       setCircleWidth(480);
     }
-  }),[timerType]); //Reset remaining time and time text display anytime timerType changes
+  }),[timerType, durations]); //Reset remaining time and time text display anytime timerType changes
 
   const updateTimerType = (event) => {
     setTimerType(event);
@@ -54,6 +58,26 @@ function App() {
   }
   const updateThemeStyle = (event) => {
     setThemeStyle(event);
+  }
+  //User Custom Update Durations
+  const updateDurations = (event) => {
+    setDurations(event);
+    //Check which timer type is currently active and update
+    if (timerType === durations.pomodoro) {
+      setTimerType(event.pomodoro);
+    } else if (timerType === durations.shortBreak) {
+      setTimerType(event.shortBreak);
+    } else if (timerType === durations.longBreak) {
+      setTimerType(event.longBreak);
+    }
+    //Reset the time whenever new change applies
+    setTimerRunning(false);
+    clearInterval(intervalId.current);
+    setButtonStatus("START");
+    setRemainingTime(timerType * 60);
+    progress(timerType * 60);
+
+    console.log(event);
   }
 
   const handleStartStop = () => {
@@ -68,6 +92,10 @@ function App() {
         setTimerRunning(true);
     }
   }
+  /*const handleAlarmPause = () => {
+    alarm.pause();
+    alarm.currentTime = 0;
+  }*/
 
   //Helper functions
   function formatTime (timeInSeconds) {
@@ -81,6 +109,7 @@ function App() {
           clearInterval(intervalId.current);
           setTimerRunning(false);
           setButtonStatus('RESTART');
+          alarm.play();
           return timerType * 60; //reset the timer back to initial
       }
       const newRemainingTime = prevRemainingTime-1;
@@ -106,11 +135,11 @@ function App() {
       </div>
       <div className="content">
         <BreakModes themeStyle={themeStyle} updateTimerType={updateTimerType} durations={durations}/>
-        <Timer buttonStatus={buttonStatus} 
+        <Timer buttonStatus={buttonStatus}
           timeInText={timeInText} handleStartStop={handleStartStop} 
           themeStyle={themeStyle} progressRingStyle={progressRingStyle}
         />
-        <Settings updateThemeStyle={updateThemeStyle}/>
+        <Settings updateThemeStyle={updateThemeStyle} updateDurations={updateDurations}/>
       </div>
     </div>
   );
