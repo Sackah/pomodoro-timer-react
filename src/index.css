@@ -251,7 +251,7 @@ button:hover, button:active{
   /*SETTINGS*/
   .settings-menu{
     width: 350px;
-    height: 750px;
+    height: 650px;
     top: -525px;
   }
   .settings-header{
@@ -293,7 +293,7 @@ button:hover, button:active{
     width: 70%;
   }
   button{
-    margin-top: 5%;
+    margin-top: 4%;
   }
 }
 
