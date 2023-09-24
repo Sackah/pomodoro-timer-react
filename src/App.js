@@ -6,7 +6,9 @@ import alarmSound from './assets/Justin Bieber - Stay Short Version.mp3';
 import { useState, useEffect, useRef } from 'react';
 
 function App() {
-  //States
+  /*
+                    STATES
+                                                            */
   const alarm = new Audio(alarmSound);
   const [ durations, setDurations ] = useState({
     pomodoro: 25,
@@ -32,7 +34,10 @@ function App() {
     strokeDashoffset: `${circumference}`
   });
   
-
+  /*
+                    useEffect Hooks
+                                                            */
+//Reset remaining time and time text display anytime timerType changes
   useEffect((()=>{
     setRemainingTime(timerType * 60);
     setTimeInText(formatTime(timerType * 60));
@@ -45,8 +50,11 @@ function App() {
     } else {
       setCircleWidth(480);
     }
-  }),[timerType, durations]); //Reset remaining time and time text display anytime timerType changes
+  }),[timerType, durations]);
 
+    /*
+                    USER CUSTOMIZATION
+                                                            */
   const updateTimerType = (event) => {
     setTimerType(event);
     if (timerRunning){
@@ -59,7 +67,6 @@ function App() {
   const updateThemeStyle = (event) => {
     setThemeStyle(event);
   }
-  //User Custom Update Durations
   const updateDurations = (event) => {
     setDurations(event);
     //Check which timer type is currently active and update
@@ -79,6 +86,9 @@ function App() {
     console.log(event);
   }
 
+    /*
+                    START AND STOP
+                                                            */
   const handleStartStop = () => {
     if (timerRunning){
         clearInterval(intervalId.current);
@@ -96,7 +106,9 @@ function App() {
     alarm.currentTime = 0;
   })
 
-  //Helper functions
+    /*
+                    HELPER FUNCTIONS
+                                                            */
   function formatTime (timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60); 
     const seconds = timeInSeconds % 60; 
