@@ -75,7 +75,6 @@ function App() {
     clearInterval(intervalId.current);
     setButtonStatus("START");
     setRemainingTime(timerType * 60);
-    progress(timerType * 60);
 
     console.log(event);
   }
