@@ -26,9 +26,7 @@ function App() {
   const [ timeInText, setTimeInText ] = useState(formatTime(remainingTime));
   const intervalId = useRef(null);
   
-  const [ circleWidth, setCircleWidth ] = useState(480);
-  const radius = (31.11/100) * circleWidth;
-  const circumference = (2*Math.PI) * radius;
+  const [ circumference, setCircumference ] = useState(938.2554955505133)/*(2*Math.PI) * radius;*/
   const [ progressRingStyle, setProgressRingStyle ] = useState({
     strokeDasharray: `${circumference} ${circumference}`,
     strokeDashoffset: `${circumference}`
@@ -44,13 +42,15 @@ function App() {
 
     console.log('durations changed');
 
-    // Set circleWidth based on window width
-    if (window.innerWidth <= 414) {
-      setCircleWidth(360);
-    } else {
-      setCircleWidth(480);
-    }
   }),[timerType, durations]);
+  //Set circumference based on window width
+  useEffect(()=>{
+     if (window.innerWidth <= 414) {
+      setCircumference(752.5590953894741);
+    } else {
+      setCircumference(938.2554955505133);
+    }
+  }, []);
 
     /*
                     USER CUSTOMIZATION
